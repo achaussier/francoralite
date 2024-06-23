@@ -39,6 +39,10 @@ class AuthorityContribsFactory(AuthorityFactory):
     """
     Authority factory with contibutions
     """
+
+    class Meta:
+        skip_postgeneration_save=True
+
     @factory.post_generation
     def contribs( self, create, extracted, **kwargs):
         if not create: return

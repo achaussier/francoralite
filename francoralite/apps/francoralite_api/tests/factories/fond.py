@@ -40,6 +40,9 @@ class FondFactoryMission(FondFactory):
     Fond factory with missions
     """
 
+    class Meta:
+        skip_postgeneration_save=True
+
     @factory.post_generation
     def missions( self, create, extracted, **kwargs):
         if not create: return

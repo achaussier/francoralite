@@ -1,7 +1,7 @@
 import os
 
 from django.conf import settings
-from django.conf.urls import re_path, include
+from django.urls import re_path, include
 #from django.contrib import admin
 from django.http import HttpResponse
 #from django.views.i18n import javascript_catalog

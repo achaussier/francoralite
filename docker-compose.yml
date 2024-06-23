@@ -8,8 +8,8 @@ networks:
   keycloak: {}
   francoralite: {}
   services:
-    external:
-      name: 'services'
+    external: True
+    name: 'services'
 
 services:
   app:
@@ -25,6 +25,7 @@ services:
       interval: '10s'
       timeout: '2s'
       retries: 20
+    image: "${FRANCORALITE_IMAGE}:${FRANCORALITE_VERSION}"
     logging: &logging
       driver: 'json-file'
       options:

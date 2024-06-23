@@ -14,9 +14,12 @@ class VersionsView(views.APIView):
         data = {}
 
         # Git
-        head = subprocess.Popen("git rev-parse HEAD", 
-            shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        data["git_commit"] = head.stdout.readline().strip()
+        stdout, stderr = subprocess.Popen(
+            "git rev-parse HEAD",
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE, shell=True
+        ).communicate()
+        data["git_commit"] = stdout.strip()
 
         # Python
         data["python"] = sys.version

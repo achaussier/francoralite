@@ -22,7 +22,7 @@ def test_authority_not_found(francoralite_context):
     # Back (lecture)
     response = client.get(url_prefix + '/api/authority/1234')
     assert response.status_code == 404
-    assert response.json().get('detail') == 'Not found.'
+    assert response.json().get('detail') == 'No Authority matches the given query.'
 
     # Front (lecture)
     response = client.get(url_prefix + '/authority/1234')

@@ -4,7 +4,7 @@
 #
 # Authors: Luc LEGER / Coopérative ARTEFACTS <artefacts.lle@gmail.com>
 
-from django.conf.urls import re_path, include
+from django.urls import re_path, include
 
 from .views import (
     home as home_integration,

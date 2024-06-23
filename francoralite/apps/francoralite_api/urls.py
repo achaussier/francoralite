@@ -1,5 +1,5 @@
 from rest_framework_nested import routers
-from django.conf.urls import re_path
+from django.urls import re_path
 from .views import (
     acquisition_mode,
     advanced_search,
@@ -186,9 +186,9 @@ router.register(r'usefulness',
 router.register(r'ref_laforte',
                 ref_laforte.RefLaforteViewSet,
                 basename='ref_laforte')
-router.register(r'skos_collection',
-                skos_collection.SkosCollectionViewSet,
-                basename='coirault')
+#router.register(r'skos_collection',
+#                skos_collection.SkosCollectionViewSet,
+#                basename='coirault')
 router.register(r'skos_concept',
                 skos_concept.SkosConceptViewSet,
                 basename='coirault')

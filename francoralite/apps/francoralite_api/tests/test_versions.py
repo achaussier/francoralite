@@ -1,5 +1,4 @@
 import pytest
-import sys
 
 from rest_framework.test import APITestCase
 from rest_framework import status
@@ -17,6 +16,5 @@ class TestVersions(APITestCase):
 
          self.assertEqual(response.status_code, status.HTTP_200_OK)
          self.assertEqual(len(response.data), 4)
-         #self.assertEqual(len(response.data["git_commit"]), 61)
-         self.assertEqual(response.data["python"][0:6], "3.8.12")
-         self.assertEqual(response.data["django"], (3,1,14,"final",0) )
+         self.assertEqual(response.data["python"][0:6], "3.11.9")
+         self.assertEqual(response.data["django"], (4,2,13,"final",0))

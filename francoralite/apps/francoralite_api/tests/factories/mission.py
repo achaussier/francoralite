@@ -33,6 +33,9 @@ class MissionCollectionFactory(MissionFactory):
     Mission with collections
     """
 
+    class Meta:
+        skip_postgeneration_save=True
+
     @factory.post_generation
     def collections( self, create, extracted, **kwargs):
         if not create: return

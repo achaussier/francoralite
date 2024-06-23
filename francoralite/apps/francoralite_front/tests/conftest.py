@@ -50,10 +50,10 @@ class FrancoraliteSeleniumContext():
     def __init__(self, url_prefix=None):
         self.URL_PREFIX = url_prefix or 'http://127.0.0.1:8000'
         options = FirefoxOptions()
-        options.headless = True
-        options.firefox_path = '/usr/bin/firefox-esr'
+        options.add_argument("-headless")
+        options.binary_location = '/usr/bin/firefox-esr'
         self.browser = Firefox(options=options)
-        self.browser.set_window_size(1080, 1080)
+        self.browser.set_window_size(2560, 1440)
 
     def open_url(self, url):
         self.browser.get(self.URL_PREFIX + url)

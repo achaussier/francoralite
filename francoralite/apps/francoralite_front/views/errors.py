@@ -4,7 +4,7 @@ from django.utils.translation import gettext as _
 from ..tools import UserMessageHttp404
 
 
-def csrf_failure(request, exception=None):
+def csrf_failure(request, exception=None, reason=""):
     return render(request, 'error.html', {
         'title': _('Accès non autorisé'),
         'message': _('Jeton CSRF invalide ! Veuillez ré-ressayer.'),

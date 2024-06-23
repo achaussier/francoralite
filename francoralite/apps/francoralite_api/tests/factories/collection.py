@@ -66,6 +66,9 @@ class CollectionCompleteFactory(CollectionFactory):
     Collection with all related entities
     """
 
+    class Meta:
+        skip_postgeneration_save=True
+
     @factory.post_generation
     def complete( self, create, extracted, **kwargs):
         if not create: return
@@ -86,6 +89,9 @@ class CollectionItemsFactory(CollectionFactory):
     """
     Collection with items related
     """
+
+    class Meta:
+        skip_postgeneration_save=True
 
     @factory.post_generation
     def items( self, create, extracted, **kwargs):

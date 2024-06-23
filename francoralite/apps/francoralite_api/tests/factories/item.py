@@ -88,6 +88,10 @@ class ItemFactory(factory.django.DjangoModelFactory):
 
 
 class ItemCollectionFactory(ItemFactory):
+
+    class Meta:
+        skip_postgeneration_save=True
+
     @factory.post_generation
     def duration_void( obj, create, extracted, **kwargs):
         """
@@ -101,6 +105,9 @@ class ItemCompleteFactory(ItemFactory):
     """
     Fond factory with missions
     """
+
+    class Meta:
+        skip_postgeneration_save=True
 
     @factory.post_generation
     def performances( self, create, extracted, **kwargs):

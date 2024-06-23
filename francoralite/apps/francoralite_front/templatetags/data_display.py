@@ -14,7 +14,7 @@ from django.utils.http import urlencode
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
-from francoralite_front.errors import APPLICATION_ERRORS
+from ..errors import APPLICATION_ERRORS
 
 register = template.Library()
 

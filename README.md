@@ -33,10 +33,10 @@ git submodule update --recursive --init
 
 ### Run stack
 
-> You must have docker compose installed inside a Python2 virtualenv
+> You must have Docker Compose 2 installed (update to last version)
 
 ```
-docker-compose up
+docker compose up
 ```
 
 ### Run tests (back and front)
@@ -44,24 +44,24 @@ docker-compose up
 We need to install tests dependencies inside container before run tests
 
 ```
-docker-compose exec app bash -c 'pip install --no-cache-dir .[tests]'
-docker-compose exec app bash -c './scripts/deps_selenium.sh'
+docker compose exec app bash -c 'pip install --no-cache-dir .[tests]'
+docker compose exec app bash -c './scripts/deps_selenium.sh'
 ```
 
 Now, we can launch all tests
 ```
-docker-compose exec app bash -c 'py.test -Werror -x'
+docker compose exec app bash -c 'py.test -Werror -x'
 ```
 
 In case, we want to launch front tests only
 ```
-docker-compose exec app bash -c 'py.test francoralite/apps/francoralite_front/tests/ -x'
+docker compose exec app bash -c 'py.test francoralite/apps/francoralite_front/tests/ -x'
 ```
 
 ### Generate graph models
 
 ```
-docker-compose exec app bash -c './scripts/generate_graph_models.sh'
+docker compose exec app bash -c './scripts/generate_graph_models.sh'
 ```
 
 ## URLs

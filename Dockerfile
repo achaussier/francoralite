@@ -1,4 +1,4 @@
-FROM python:3.8.12-slim-buster
+FROM python:3.11.9-slim-bookworm
 
 ENV DJANGO_SETTINGS_MODULE francoralite.settings.base
 ENV KEYCLOAK_DEFAULT_ACCESS ALLOW
@@ -21,7 +21,7 @@ VOLUME ["/srv/app", "/srv/media", "/srv/static"]
 
 # Prepare dependencies
 RUN apt update \
-  && apt install -y default-libmysqlclient-dev gcc git
+  && apt install -y default-libmysqlclient-dev gcc git pkg-config
 
 # Add dependencies requirements
 ADD README.md requirements.txt setup.py /srv/app/

@@ -11,7 +11,7 @@ LANGUAGES = [('fr', 'French'),
              ]
 SITE_ID = 1
 USE_I18N = True
-USE_L10N = True
+USE_TZ = False
 MEDIA_ROOT = '/srv/media/'
 MEDIA_URL = '/media/'
 STATIC_ROOT = '/srv/static/'
@@ -31,12 +31,12 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.i18n',
                 'django.template.context_processors.media',
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
+                'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
         },
@@ -118,6 +118,7 @@ DATABASES = {
     }
 }
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 APPEND_SLASH = False
 
 FRONT_HOST_URL = 'http://localhost:8000'
