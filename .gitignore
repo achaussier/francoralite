@@ -60,6 +60,8 @@ francoralite/settings/local.py
 francoralite/settings/production.py
 
 # collect static output directory
+assets/
+francoralite/apps/francoralite_front/tests/assets/
 francoralite/assets/
 francoralite/static/
 
