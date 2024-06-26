@@ -1,0 +1,69 @@
+---
+
+services:
+  adminer:
+    labels:
+      - traefik.http.routers.adminer.rule=Host(`adminer.${DNS_SUBDOMAIN}`)
+      - traefik.docker.network=services
+
+  app:
+    build:
+      context: .
+    environment:
+      COVERALLS_REPO_TOKEN: "${COVERALLS_REPO_TOKEN}"
+    labels:
+      - traefik.http.routers.app.rule=Host(`app.${DNS_SUBDOMAIN}`)
+      - traefik.docker.network=services
+    develop:
+      watch:
+        - action: sync
+          path: .
+          target: /srv/app
+          ignore:
+            - docs/
+            - etc/
+            - README.md
+            - .dockerignore
+            - .env
+            - requirements.txt
+            - setup.py
+        - action: rebuild
+          path: Dockerfile
+        - action: rebuild
+          path: .dockerignore
+        - action: rebuild
+          path: requirements.txt
+        - action: rebuild
+          path: setup.py
+
+  db:
+    labels:
+      - traefik.http.routers.db.rule=Host(`db.${DNS_SUBDOMAIN}`)
+    command:
+      - --default-authentication-plugin=mysql_native_password
+
+  nginx:
+    labels:
+      - traefik.http.routers.nginx.rule=Host(`nginx.${DNS_SUBDOMAIN}`)
+      - traefik.docker.network=services
+
+  keycloak:
+    labels:
+      - traefik.http.routers.keycloak.rule=Host(`keycloak.${DNS_SUBDOMAIN}`)
+      - traefik.docker.network=services
+
+  keycloak_db:
+    labels:
+      - traefik.http.routers.keycloak-db.rule=Host(`keycloak-db.${DNS_SUBDOMAIN}`)
+
+  reverse_proxy:
+    image: "${TRAEFIK_IMAGE}:${TRAEFIK_VERSION}"
+    networks:
+      - keycloak
+      - services
+    ports:
+      - '8080:80'
+      - '58080:8080'
+    volumes:
+      - ./etc/traefik/traefik.yml:/etc/traefik/traefik.yml
+      - /var/run/docker.sock:/var/run/docker.sock

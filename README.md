@@ -36,7 +36,7 @@ git submodule update --recursive --init
 > You must have Docker Compose 2 installed (update to last version)
 
 ```
-docker compose up
+docker compose watch
 ```
 
 ### Run tests (back and front)
@@ -44,6 +44,10 @@ docker compose up
 We need to install tests dependencies inside container before run tests
 
 ```
+APP_BASE_URL=http://localhost:8000/ \
+KEYCLOAK_SERVER_URL=http://keycloak:8080/auth/ \
+KEYCLOAK_HOSTNAME=keycloak \
+docker compose up
 docker compose exec app bash -c 'pip install --no-cache-dir .[tests]'
 docker compose exec app bash -c './scripts/deps_selenium.sh'
 ```

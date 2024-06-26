@@ -21,7 +21,9 @@ VOLUME ["/srv/app", "/srv/media", "/srv/static"]
 
 # Prepare dependencies
 RUN apt update \
-  && apt install -y default-libmysqlclient-dev gcc git pkg-config
+  && apt install -y curl default-libmysqlclient-dev gcc git pkg-config \
+  && apt clean \
+  && rm -rf /var/lib/apt/lists/*
 
 # Add dependencies requirements
 ADD README.md requirements.txt setup.py /srv/app/
@@ -32,6 +34,10 @@ RUN pip install simple-yaml \
 
 # Expose port
 EXPOSE 8000
+
+# Healthcheck
+HEALTHCHECK --interval=10s --retries=20 --timeout=2s \
+  CMD curl -f http://localhost:8000/ || exit 1
 
 # Command
 CMD ["/srv/app/scripts/start_api.sh"]

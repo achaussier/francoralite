@@ -1,13 +1,29 @@
-data
+# Docker
+.dockerignore
+compose.*
+Dockerfile
+
+# Git
+.git
+
+# Python
+__pycache__/
+
+# Vim
+*.swo
+*.swp
 
 # Unecessary files
 ansible
+assets
 backups
 CONTRIBUTORS.txt
-docker-compose.*
-Dockerfile
+docs
 documentation
 env
+francoralite/apps/francoralite_front/tests/assets/
 htmlcov
 keycloak_usage.md
+Francoralite.egg-info
+CONTRIBUTORS.txt
 LICENSE.rst

@@ -1,0 +1,12 @@
+---
+
+services:
+  .common:
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "${LOGGING_MAX_SIZE}"
+        max-file: "${LOGGING_MAX_FILE}"
+    networks:
+      - francoralite

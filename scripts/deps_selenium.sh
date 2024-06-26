@@ -1,12 +1,7 @@
 #!/bin/bash
 
 # Install web browser Firefox
-apt update && apt install -y firefox-esr
-
-wget -nc https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-apt install -y ./google-chrome-stable_current_amd64.deb
-# Install wget
-apt install wget
+apt update && apt install -y firefox-esr wget
 
 # Install Gecko driver
 export GECKO_DRIVER_VERSION='v0.34.0'

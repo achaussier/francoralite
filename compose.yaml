@@ -1,0 +1,108 @@
+---
+
+# Docker compose to build Francoralite meta project
+name: francoralite
+
+networks:
+  keycloak: {}
+  francoralite: {}
+  services:
+    external: True
+    name: services
+
+services:
+  adminer:
+    extends:
+      file: compose.base.yaml
+      service: .common
+    image: "${ADMINER_IMAGE}:${ADMINER_VERSION}"
+    networks:
+      - services
+      - francoralite
+    profiles:
+      - adminer
+
+  app:
+    extends:
+      file: compose.base.yaml
+      service: .common
+    image: "${FRANCORALITE_IMAGE}:${FRANCORALITE_VERSION}"
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - ./env/app.env
+      - ./env/francoralite_db.env
+    networks:
+      - francoralite
+      - services
+    volumes:
+      - ./etc/keycloak/auth.json:/tmp/authorization_config.json
+      - francoralite_app_media:/srv/media
+      - francoralite_app_static:/srv/static
+
+  db:
+    extends:
+      file: compose.base.yaml
+      service: .common
+    image: "${MYSQL_IMAGE}:${MYSQL_VERSION}"
+    env_file:
+      - ./env/francoralite_db.env
+    healthcheck:
+      test: ["CMD-SHELL", "mysql -u $${MYSQL_USER} -p$${MYSQL_PASSWORD} -e 'SHOW DATABASES;'"]
+      interval: 30s
+      timeout: 2s
+      retries: 3
+    volumes:
+      - francoralite_db:/var/lib/mysql
+
+  keycloak:
+    extends:
+      file: compose.base.yaml
+      service: .common
+    image: "${KEYCLOAK_IMAGE}:${KEYCLOAK_VERSION}"
+    depends_on:
+      - keycloak_db
+    env_file:
+      - ./env/keycloak.env
+    networks:
+      keycloak:
+        aliases:
+          - keycloak
+      services:
+        aliases:
+          - keycloak
+          - keycloak.francoralite.localhost
+
+  keycloak_db:
+    extends:
+      file: compose.base.yaml
+      service: .common
+    image: "${POSTGRES_IMAGE}:${POSTGRES_VERSION}"
+    env_file:
+      - ./env/keycloak_database.env
+    networks:
+      - keycloak
+    volumes:
+      - keycloak_db:/var/lib/postgresql/data
+
+  nginx:
+    extends:
+      file: compose.base.yaml
+      service: .common
+    image: "${NGINX_IMAGE}:${NGINX_VERSION}"
+    depends_on:
+      - app
+      - keycloak
+    networks:
+      - services
+    volumes:
+      - ./etc/nginx.conf:/etc/nginx/conf.d/default.conf
+      - francoralite_app_media:/srv/media
+      - francoralite_app_static:/srv/static
+
+volumes:
+  francoralite_app_media: {}
+  francoralite_app_static: {}
+  francoralite_db: {}
+  keycloak_db: {}
