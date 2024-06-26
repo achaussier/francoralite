@@ -4,59 +4,57 @@
 
 * Renommer la table `telemeta_api_location`
 
-    ```
+    ```sql
     RENAME TABLE telemeta_api_location TO francoralite_api_location;
     ```
 
 ## Référencement des applications à supprimer
 
-'bootstrap3',
-'djangobower',
-'timezones',
-'telemeta',
-'timeside.player',
-# 'timeside.server',
-'sorl.thumbnail',
-'jqchat',
-'haystack',
-# 'ipauth',
-'suit',
-'saved_searches',
+* bootstrap3
+* djangobower
+* timezones
+* telemeta
+* timeside.player
+* timeside.server
+* sorl.thumbnail
+* jqchat
+* haystack
+* ipauth
+* suit
+* saved_searches
 
 
+## A verifier
 
-# A verifier
-'jsonrpc',
-'extra_views',
+* jsonrpc
+* extra_views
 
+## A garder
 
-
-# A garder
-'django.contrib.auth',
-'mozilla_django_oidc',  # Load after auth
-'django.contrib.contenttypes',
-'django.contrib.sessions',
-'django.contrib.sites',
-'django.contrib.messages',
-'django.contrib.admin',
-'django.contrib.staticfiles',
-'django_extensions',
-'registration',
-'rest_framework',
-'rest_framework_xml',
-'djcelery',
-'django',
-'rest_framework_swagger',
-'django_filters',
-'telemeta_mshs.apps.telemeta_api',
-'telemeta_mshs.apps.telemeta_front',
-'django_select2',
-'leaflet',
-'markdownx',
-'corsheaders',
-'debug_toolbar',
-'rdflib',
-
+* django.contrib.auth
+* mozilla_django_oidc  # Load after auth
+* django.contrib.contenttypes
+* django.contrib.sessions
+* django.contrib.sites
+* django.contrib.messages
+* django.contrib.admin
+* django.contrib.staticfiles
+* django_extensions
+* registration
+* rest_framework
+* rest_framework_xml
+* djcelery
+* django
+* rest_framework_swagger
+* django_filters
+* telemeta_mshs.apps.telemeta_api
+* telemeta_mshs.apps.telemeta_front
+* django_select2
+* leaflet
+* markdownx
+* corsheaders
+* debug_toolbar
+* rdflib
 
 ## Suppression de Telemeta
 

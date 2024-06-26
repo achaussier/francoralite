@@ -11,12 +11,6 @@
 
 See [Docker CE](https://docs.docker.com/install/#platform-support-matrix)
 
-* Install tkinter
-
-```
-apt-get install python-tk python-gst-1.0 python-dev libmysqlclient-dev
-```
-
 ### Git dependencies
 
 * Clone the repository
@@ -37,6 +31,16 @@ git submodule update --recursive --init
 
 ```
 docker compose watch
+```
+
+## Documentation
+
+Documentation is managed with [mkdocs](https://www.mkdocs.org/).
+
+### Show documentation
+
+```
+docker run --rm -it -p 8000:8000 -v ${PWD}:/docs squidfunk/mkdocs-material
 ```
 
 ### Run tests (back and front)

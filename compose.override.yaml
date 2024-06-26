@@ -25,6 +25,7 @@ services:
             - README.md
             - .dockerignore
             - .env
+            - mkdocs.yml
             - requirements.txt
             - setup.py
         - action: rebuild
