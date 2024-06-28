@@ -9,7 +9,9 @@ services:
   app:
     build:
       context: .
+      dockerfile: docker/Dockerfile.app
     environment:
+      LOCAL_DEV: True
       COVERALLS_REPO_TOKEN: "${COVERALLS_REPO_TOKEN}"
     labels:
       - traefik.http.routers.app.rule=Host(`app.${DNS_SUBDOMAIN}`)
@@ -20,6 +22,7 @@ services:
           path: .
           target: /srv/app
           ignore:
+            - docker/
             - docs/
             - etc/
             - README.md
@@ -29,7 +32,7 @@ services:
             - requirements.txt
             - setup.py
         - action: rebuild
-          path: Dockerfile
+          path: docker/Dockerfile.app
         - action: rebuild
           path: .dockerignore
         - action: rebuild
@@ -40,8 +43,6 @@ services:
   db:
     labels:
       - traefik.http.routers.db.rule=Host(`db.${DNS_SUBDOMAIN}`)
-    command:
-      - --default-authentication-plugin=mysql_native_password
 
   nginx:
     labels:
@@ -49,6 +50,7 @@ services:
       - traefik.docker.network=services
 
   keycloak:
+    command: start-dev --log-level=INFO
     labels:
       - traefik.http.routers.keycloak.rule=Host(`keycloak.${DNS_SUBDOMAIN}`)
       - traefik.docker.network=services
@@ -66,5 +68,5 @@ services:
       - '8080:80'
       - '58080:8080'
     volumes:
-      - ./etc/traefik/traefik.yml:/etc/traefik/traefik.yml
+      - ./docker/etc/traefik/traefik.yml:/etc/traefik/traefik.yml
       - /var/run/docker.sock:/var/run/docker.sock

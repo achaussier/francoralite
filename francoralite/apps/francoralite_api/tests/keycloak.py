@@ -4,12 +4,13 @@
 #
 # Authors: Luc LEGER / Coopérative ARTEFACTS <artefacts.lle@gmail.com>
 
+import os
 import requests
 
 
 def get_token(test, username='contributeur'):
     r = requests.post(
-        'http://keycloak.francoralite.localhost:8080/auth/realms/francoralite/protocol/openid-connect/token', # noqa
+        os.environ['KEYCLOAK_SERVER_URL'] + 'realms/francoralite/protocol/openid-connect/token', # noqa
         data={
             'client_id': 'admin-cli',
             'username': username,

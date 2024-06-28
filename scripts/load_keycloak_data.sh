@@ -8,6 +8,11 @@ then
     data_file_path="backups/dump_keycloak.sql"
 fi
 
+if [ "$KEYCLOAK_HOSTNAME" != "" ]
+then
+  export KEYCLOAK_HOSTNAME="${KEYCLOAK_HOSTNAME}"
+fi
+
 docker compose stop keycloak \
     && docker compose rm -f keycloak \
     && docker compose stop keycloak_db \

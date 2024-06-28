@@ -26,7 +26,7 @@ RUN apt update \
   && rm -rf /var/lib/apt/lists/*
 
 # Add dependencies requirements
-ADD README.md requirements.txt setup.py /srv/app/
+ADD ../README.md ../requirements.txt ../setup.py /srv/app/
 
 # Install Python dependencies
 RUN pip install simple-yaml \
@@ -43,4 +43,4 @@ HEALTHCHECK --interval=10s --retries=20 --timeout=2s \
 CMD ["/srv/app/scripts/start_api.sh"]
 
 # Copy source code
-ADD . .
+ADD .. .

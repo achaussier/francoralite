@@ -48,12 +48,13 @@ docker run --rm -it -p 8000:8000 -v ${PWD}:/docs squidfunk/mkdocs-material
 We need to install tests dependencies inside container before run tests
 
 ```
-APP_BASE_URL=http://localhost:8000/ \
-KEYCLOAK_SERVER_URL=http://keycloak:8080/auth/ \
-KEYCLOAK_HOSTNAME=keycloak \
-docker compose up
-docker compose exec app bash -c 'pip install --no-cache-dir .[tests]'
-docker compose exec app bash -c './scripts/deps_selenium.sh'
+docker compose down && KEYCLOAK_HOSTNAME=keycloak docker compose up -d
+
+# If Keycloak not initialized, run this command
+KEYCLOAK_HOSTNAME=keycloak ./scripts/load_keycloak_data.sh
+
+# Prepare tests dependencies
+./scripts/load_env_test.sh
 ```
 
 Now, we can launch all tests
